@@ -84,7 +84,7 @@ export default function KanbanBoard({ group, order }) {
             ); 
             // console.log(groupTickets);
             return <TicketColumn
-                    key={columnTitle} 
+                    key={columnName} 
                     title = {columnName}
                     ticketList = {groupTickets}
                 />
