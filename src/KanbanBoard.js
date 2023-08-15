@@ -4,7 +4,7 @@ import TicketColumn from "./TicketColumn";
 
 export default function KanbanBoard({ group, order }) {
     
-    const url = "https://api.quicksell.co/v1/internal/frontend-assignment"
+    const url = "https://api.quicksell.co/v1/internal/frontend-assignment";
  
     const [loading, setLoading] = useState(true);
     const [tickets, setTickets] = useState([]);
@@ -26,33 +26,26 @@ export default function KanbanBoard({ group, order }) {
         ["No Priority", [0]]
     ]);
 
-    // const statusList = ["Backlog", "Todo", "In Progress", "Done", "Canceled"]
-    // const priorityList = ["No Priority", "Low", "Medium", "High", "Urgent"]
-
     const fetchData = async () => {
         try {
           const response = await fetch(url);
           const json = await response.json();
           setTickets(json.tickets)
           setUsers(json.users);
-          // console.log(json);
         } catch (error) {
-          setError(error)
-          // console.log("error", error);
+          setError(error);
         }
         setLoading(false)
     };
 
     useEffect(() => {
         
-        setLoading(true)
+        setLoading(true);
 
         if (dataFetchedRef.current) return;
         dataFetchedRef.current = true;
     
         fetchData();
-
-        // console.log(tickets)
 
     }, []);
 
@@ -82,17 +75,16 @@ export default function KanbanBoard({ group, order }) {
             var groupTickets = tickets.filter(
                 checkTicketGroup
             ); 
-            // console.log(groupTickets);
+
             return <TicketColumn
                     key={columnName} 
                     title = {columnName}
                     ticketList = {groupTickets}
+                    group={group}
+                    order={order}
+                    users={users}
                 />
-        })
-
-
-    // console.log(groupList.STATUS)
-    // console.log(tickets)
+    });
 
     return (
         <div className="KanbanBoard">
